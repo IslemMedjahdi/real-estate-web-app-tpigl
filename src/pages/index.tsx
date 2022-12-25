@@ -1,7 +1,13 @@
 import { NextPage } from "next";
+import { NextSeo } from "next-seo";
 
 const Home: NextPage = () => {
-  return <div className="h-screen bg-red-500 ">{"islem"}</div>;
+  return (
+    <>
+      <NextSeo title="Accueille" />
+      <div>This is home page</div>
+    </>
+  );
 };
 
 export default Home;
