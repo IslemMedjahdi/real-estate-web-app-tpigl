@@ -18,6 +18,10 @@ class TokenService {
   updateAccessToken(token: string) {
     localStorage.setItem("@token", token);
   }
+
+  removeAccessToken() {
+    localStorage.removeItem("@token");
+  }
 }
 
 export default TokenService;

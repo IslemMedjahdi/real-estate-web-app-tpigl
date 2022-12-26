@@ -7,6 +7,11 @@ import useGoogleAuth from "../../hooks/useGoogleAuth";
 const AuthIndex = () => {
   const { handleGoogle, loading } = useGoogleAuth();
 
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin.split("//")[1]
+      : "";
+
   useEffect(() => {
     const google = (window as any).google;
     if (google) {
@@ -22,7 +27,7 @@ const AuthIndex = () => {
       });
       google.accounts.id.prompt();
     }
-  }, [handleGoogle]);
+  }, []);
 
   return (
     <div className="grid h-screen grid-cols-1 text-gray-900 md:grid-cols-2">
@@ -45,6 +50,11 @@ const AuthIndex = () => {
           ) : (
             <div id="authDiv" data-text="continue_with"></div>
           )}
+        </div>
+        <div className="flex justify-center">
+          <p className="text-sm font-medium">
+            Copyright ©{new Date().getFullYear()} {origin} All rights reserved
+          </p>
         </div>
       </div>
       <div

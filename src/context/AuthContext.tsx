@@ -9,9 +9,11 @@ import { Auth } from "../typings/user";
 const tokenService = TokenService.getInstance();
 const userService = UserService.getInstance();
 
-export const AuthContext = createContext<{ updateUser?: () => Promise<void> }>(
-  {}
-);
+export const AuthContext = createContext<{
+  updateUser?: () => Promise<void>;
+  currentUser: Auth.User | null | undefined;
+  signOut: () => void;
+}>({ currentUser: undefined, signOut: () => {} });
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -55,6 +57,12 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const signOut = () => {
+    userService.removeUser();
+    tokenService.removeAccessToken();
+    setCurrentUser(null);
+  };
+
   useEffect(() => {
     handleAuth();
   }, []);
@@ -86,7 +94,10 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [router.pathname, currentUser]);
 
-  const contextValue = useMemo(() => ({ updateUser }), [updateUser]);
+  const contextValue = useMemo(
+    () => ({ updateUser, currentUser, signOut }),
+    [updateUser, currentUser, signOut]
+  );
 
   if (
     pageLoading ||
