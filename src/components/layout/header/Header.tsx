@@ -12,7 +12,7 @@ const Header = () => {
     <header className="flex items-center justify-between gap-x-4 border-b py-4 px-4">
       <div className="flex items-center gap-x-4">
         <button className="p-1 hover:bg-gray-50">
-          <ICONS.MENU className="text-2xl" />
+          <ICONS.MENU className="text-xl" />
         </button>
         <Link
           href={ROUTES.HOME.path}
@@ -27,7 +27,7 @@ const Header = () => {
       <div className="flex items-center gap-x-4">
         <nav className="hidden items-center gap-x-4 md:flex ">
           {NAV.map((item) => (
-            <Link className="font-medium" href={item.path}>
+            <Link className="text-base font-medium" href={item.path}>
               {item.name}
             </Link>
           ))}

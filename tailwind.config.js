@@ -18,6 +18,9 @@ module.exports = {
         sans: ["'Open Sans'", "sans-serif"],
         serif: ["'Merriweather'", "serif"],
       },
+      fontSize: {
+        base: "0.9375rem",
+      },
     },
   },
   plugins: [],

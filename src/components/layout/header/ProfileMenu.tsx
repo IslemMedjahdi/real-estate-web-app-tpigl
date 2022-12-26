@@ -13,7 +13,7 @@ const ProfileMenu = () => {
     return <></>;
   }
   const ProfileImage = () => (
-    <div className="rounded-full bg-blue-primary p-2 font-medium text-white">
+    <div className="rounded-full bg-blue-primary p-2 text-sm font-medium text-white">
       {currentUser.firstName[0]} {currentUser.lastName[0]}
     </div>
   );
@@ -37,7 +37,7 @@ const ProfileMenu = () => {
             <Menu.Item>
               <Link
                 href={ROUTES.HOME.path}
-                className="flex flex-wrap items-center gap-x-2 px-3 py-2 hover:bg-gray-50 "
+                className="flex flex-wrap items-center gap-x-2 px-3 py-2 text-sm font-medium hover:bg-gray-50 "
               >
                 <ProfileImage />
                 <p>
@@ -48,7 +48,7 @@ const ProfileMenu = () => {
             {MENU_NAV.map((item) => (
               <Menu.Item>
                 <Link
-                  className="flex flex-wrap items-center gap-x-2 px-3 py-4 hover:bg-gray-50"
+                  className="flex flex-wrap items-center gap-x-2 px-3 py-4 text-sm font-medium  hover:bg-gray-50"
                   href={item.path}
                 >
                   {item.name}
@@ -58,7 +58,7 @@ const ProfileMenu = () => {
             {NAV.map((item) => (
               <Menu.Item>
                 <Link
-                  className="flex flex-wrap items-center gap-x-2 px-2 py-4 hover:bg-gray-50 md:hidden "
+                  className="flex flex-wrap items-center gap-x-2 px-2 py-4 text-sm font-medium hover:bg-gray-50 md:hidden "
                   href={item.path}
                 >
                   {item.name}
@@ -68,7 +68,7 @@ const ProfileMenu = () => {
             <Menu.Item>
               <div
                 onClick={signOut}
-                className="flex cursor-pointer flex-wrap items-center gap-x-2 px-2 py-4 hover:bg-gray-50"
+                className="flex cursor-pointer flex-wrap items-center gap-x-2 px-2 py-4 text-sm font-medium hover:bg-gray-50"
               >
                 <p>Se déconnecter</p>
               </div>
