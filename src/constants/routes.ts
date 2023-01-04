@@ -14,7 +14,7 @@ export const ROUTES = {
     allowedRoles: [ROLES.ADMIN, ROLES.USER],
   },
   POSTED_ANNOUNCEMENTS: {
-    name: "Annonces déposé",
+    name: "Annonces déposées",
     path: "/posted-announcements",
     pathname: "/posted-announcements",
     allowedRoles: [ROLES.USER],

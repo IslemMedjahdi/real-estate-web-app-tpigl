@@ -14,7 +14,7 @@ const ProfileMenu = () => {
   }
   const ProfileImage = () => (
     <div className="rounded-full bg-blue-primary p-2 text-sm font-medium text-white">
-      {currentUser.firstName[0]} {currentUser.lastName[0]}
+      {currentUser.prenom[0]} {currentUser.nom[0]}
     </div>
   );
 
@@ -41,12 +41,12 @@ const ProfileMenu = () => {
               >
                 <ProfileImage />
                 <p>
-                  {currentUser.firstName} {currentUser.lastName}
+                  {currentUser.prenom} {currentUser.nom}
                 </p>
               </Link>
             </Menu.Item>
-            {MENU_NAV.map((item) => (
-              <Menu.Item>
+            {MENU_NAV.map((item, index) => (
+              <Menu.Item key={index}>
                 <Link
                   className="flex flex-wrap items-center gap-x-2 px-3 py-4 text-sm font-medium  hover:bg-gray-50"
                   href={item.path}
@@ -55,8 +55,8 @@ const ProfileMenu = () => {
                 </Link>
               </Menu.Item>
             ))}
-            {NAV.map((item) => (
-              <Menu.Item>
+            {NAV.map((item, index) => (
+              <Menu.Item key={index}>
                 <Link
                   className="flex flex-wrap items-center gap-x-2 px-2 py-4 text-sm font-medium hover:bg-gray-50 md:hidden "
                   href={item.path}

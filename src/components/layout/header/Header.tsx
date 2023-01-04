@@ -26,8 +26,12 @@ const Header = () => {
       </div>
       <div className="flex items-center gap-x-4">
         <nav className="hidden items-center gap-x-4 md:flex ">
-          {NAV.map((item) => (
-            <Link className="text-base font-medium" href={item.path}>
+          {NAV.map((item, index) => (
+            <Link
+              key={index}
+              className="text-base font-semibold"
+              href={item.path}
+            >
               {item.name}
             </Link>
           ))}

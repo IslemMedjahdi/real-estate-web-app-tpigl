@@ -32,7 +32,7 @@ const AuthIndex = () => {
   return (
     <div className="grid h-screen grid-cols-1 text-gray-900 md:grid-cols-2">
       <div
-        style={{ backgroundImage: `url(${IMAGES.Auth_background})` }}
+        style={{ backgroundImage: `url(${IMAGES.Auth_background_mobile})` }}
         className="flex h-full w-full flex-col bg-white  bg-cover bg-no-repeat p-8 md:!bg-none"
       >
         <div className="flex cursor-pointer flex-wrap items-baseline gap-2">
@@ -52,15 +52,20 @@ const AuthIndex = () => {
           )}
         </div>
         <div className="flex justify-center">
-          <p className="text-sm font-medium">
+          <p className="text-sm font-medium text-white md:text-gray-900">
             Copyright ©{new Date().getFullYear()} {origin} All rights reserved
           </p>
         </div>
       </div>
-      <div
-        className="hidden h-full w-full bg-cover bg-no-repeat md:block"
-        style={{ backgroundImage: `url(${IMAGES.Auth_background})` }}
-      />
+      <div className="hidden h-full w-full md:block">
+        <Image
+          src={IMAGES.Auth_background}
+          alt="auth background"
+          className="h-full w-full object-cover"
+          width={1280}
+          height={720}
+        />
+      </div>
     </div>
   );
 };
