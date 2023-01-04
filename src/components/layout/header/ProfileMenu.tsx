@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { Fragment } from "react";
+import { ICONS } from "../../../constants/icons";
 import { MENU_NAV } from "../../../constants/menuNav";
 import { NAV } from "../../../constants/nav";
 import { ROUTES } from "../../../constants/routes";
@@ -37,7 +38,7 @@ const ProfileMenu = () => {
             <Menu.Item>
               <Link
                 href={ROUTES.HOME.path}
-                className="flex items-center gap-x-2 px-3 py-2 text-sm font-medium hover:bg-gray-50 "
+                className="flex items-center gap-x-2 px-2 py-2 text-sm font-medium hover:bg-gray-50 "
               >
                 <div>
                   <ProfileImage />
@@ -55,28 +56,37 @@ const ProfileMenu = () => {
             {MENU_NAV.map((item, index) => (
               <Menu.Item key={index}>
                 <Link
-                  className="flex flex-wrap items-center gap-x-2 px-3 py-4 text-sm font-medium  hover:bg-gray-50"
+                  className="flex flex-wrap items-center gap-x-2 px-2 py-2 text-sm font-medium  hover:bg-gray-50"
                   href={item.path}
                 >
-                  {item.name}
+                  <div className="flex h-10 w-10 items-center justify-center">
+                    <item.Icon className="text-xl text-gray-700" />
+                  </div>
+                  <span> {item.name}</span>
                 </Link>
               </Menu.Item>
             ))}
             {NAV.map((item, index) => (
               <Menu.Item key={index}>
                 <Link
-                  className="flex flex-wrap items-center gap-x-2 px-2 py-4 text-sm font-medium hover:bg-gray-50 md:hidden "
+                  className="flex flex-wrap items-center gap-x-2 px-2 py-2 text-sm font-medium hover:bg-gray-50 md:hidden "
                   href={item.path}
                 >
-                  {item.name}
+                  <div className="flex h-10 w-10 items-center justify-center">
+                    <item.Icon className="text-xl text-gray-700" />
+                  </div>
+                  <span> {item.name}</span>
                 </Link>
               </Menu.Item>
             ))}
             <Menu.Item>
               <div
                 onClick={signOut}
-                className="flex cursor-pointer flex-wrap items-center gap-x-2 px-2 py-4 text-sm font-medium hover:bg-gray-50"
+                className="flex cursor-pointer flex-wrap items-center gap-x-2 px-2 py-2 text-sm font-medium hover:bg-gray-50"
               >
+                <div className="flex h-10 w-10 items-center justify-center">
+                  <ICONS.SignOut className="text-xl text-gray-700" />
+                </div>
                 <p>Se déconnecter</p>
               </div>
             </Menu.Item>
