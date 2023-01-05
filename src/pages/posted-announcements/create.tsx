@@ -6,7 +6,7 @@ import { ROUTES } from "../../constants/routes";
 const AddAnnouncement: NextPage = () => {
   return (
     <>
-      <NextSeo title={ROUTES.ADD_ANNOUNCEMENTS.name} />
+      <NextSeo title={ROUTES.ADD_ANNOUNCEMENT.name} />
       <AddAnnouncementIndex />
     </>
   );

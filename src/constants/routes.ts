@@ -21,7 +21,7 @@ export const ROUTES = {
     allowedRoles: [ROLES.USER],
     Icon: ICONS.Posted,
   },
-  ADD_ANNOUNCEMENTS: {
+  ADD_ANNOUNCEMENT: {
     name: "Ajouter une annonce",
     path: "/posted-announcements/create",
     pathname: "/posted-announcements/create",

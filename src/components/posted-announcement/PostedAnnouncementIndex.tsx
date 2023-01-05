@@ -161,10 +161,9 @@ const PostedAnnouncementIndex: React.FC = () => {
     try {
       const response = await announcementService.getMyAnnouncements();
       setAnnouncements(response.data);
+      setLoading(false);
     } catch (e) {
       console.log(e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -184,6 +183,20 @@ const PostedAnnouncementIndex: React.FC = () => {
           <DataTable
             columns={columns}
             data={announcements || []}
+            noDataComponent={
+              <div className="flex h-52 flex-col items-center justify-center gap-2">
+                <p className="text-center text-lg font-medium text-gray-800">
+                  Vous n'avez pas encore d'annonce, cliquez ici pour ajouter une
+                  nouvelle annonce
+                </p>
+                <Link
+                  href={ROUTES.ADD_ANNOUNCEMENT.path}
+                  className="rounded-sm bg-blue-primary px-4 py-2 text-white transition duration-200 hover:bg-blue-hover"
+                >
+                  Ajouter une announce
+                </Link>
+              </div>
+            }
             customStyles={{
               headCells: {
                 style: {
@@ -195,7 +208,7 @@ const PostedAnnouncementIndex: React.FC = () => {
             pagination
             progressPending={loading}
             progressComponent={
-              <div className="flex w-full justify-center dark:bg-slate-800">
+              <div className="flex h-52 w-full items-center justify-center dark:bg-slate-800">
                 <Loading />
               </div>
             }

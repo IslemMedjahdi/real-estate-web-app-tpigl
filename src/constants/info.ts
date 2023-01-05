@@ -1,7 +1,7 @@
 import { IMAGES } from "./images";
 
 export const INFO = {
-  Title: "Future Immobilier",
+  Title: "Immobilia",
   Icon: IMAGES.Logo,
   Description: "",
 };
