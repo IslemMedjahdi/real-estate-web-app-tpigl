@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ICONS } from "../../constants/icons";
-import { IMAGES } from "../../constants/images";
-import { ROUTES } from "../../constants/routes";
-import AnnouncementService from "../../services/annoucement.service";
-import { Announcement } from "../../typings/announcement";
-import Loading from "../shared/Loading";
+import { ICONS } from "../../../constants/icons";
+import { IMAGES } from "../../../constants/images";
+import { ROUTES } from "../../../constants/routes";
+import AnnouncementService from "../../../services/annoucement.service";
+import { Announcement } from "../../../typings/announcement";
+import Loading from "../../shared/Loading";
 // Import Swiper styles
 import "swiper/css";
+import { imageUrl } from "../../../utils/lib";
 
 const announcementService = AnnouncementService.getInstance();
 
@@ -29,25 +30,20 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
     name: "Photos",
     cell: (row, index) => (
       <>
-        {true || (row.photos && row.photos.length > 0) ? (
+        {row.photos && row.photos.length > 0 ? (
           <>
             <Swiper
               modules={[Autoplay]}
-              loop={true}
               autoplay={{
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
                 delay: index % 2 ? 3000 : 4000,
               }}
             >
-              {[
-                IMAGES.Auth_background,
-                IMAGES.Auth_background_mobile,
-                IMAGES.NO_IMAGE,
-              ].map((item, index) => (
-                <SwiperSlide key={index} className="!w-full">
+              {row.photos.map(({ id }, index) => (
+                <SwiperSlide key={index} className="!w-full overflow-hidden">
                   <Image
-                    src={item}
+                    src={imageUrl(id)}
                     alt="no-image"
                     className="aspect-video h-36  object-cover"
                     width={720}
@@ -61,7 +57,7 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
           <Image
             src={IMAGES.NO_IMAGE}
             alt="no-image"
-            className="aspect-video h-36 object-cover"
+            className="pointer-events-none aspect-video h-36 object-cover"
             width={720}
             height={480}
           />
@@ -69,6 +65,16 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
       </>
     ),
     grow: 3,
+  },
+  {
+    name: "Titre",
+    cell: (row) => (
+      <p className="text-sm font-medium">{row.titre || "indéfini"}</p>
+    ),
+    selector: (row) => row.titre || "indéfini",
+    sortable: true,
+    reorder: true,
+    grow: 1.5,
   },
   {
     name: "Catégorie",
@@ -81,9 +87,7 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
   {
     name: "Surface",
     cell: (row) => (
-      <p className="text-sm font-medium">
-        {row.surface + " Km²" || "indéfini"}
-      </p>
+      <p className="text-sm font-medium">{row.surface + " m²" || "indéfini"}</p>
     ),
     selector: (row) => row.surface || 0,
     sortable: true,
@@ -99,11 +103,15 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
     grow: 1,
   },
   {
-    name: "Type",
+    name: "Location",
     cell: (row) => (
-      <p className="text-sm font-medium">{row.type || "indéfini"}</p>
+      <div className="flex flex-col text-sm font-medium">
+        <p>{row.localisation.commune}</p>
+        <p>{row.localisation.wilaya}</p>
+      </div>
     ),
-    selector: (row) => row.type || "indéfini",
+    selector: (row) =>
+      [row.localisation.commune, row.localisation.wilaya].join(" "),
     sortable: true,
     reorder: true,
     grow: 1,
@@ -173,9 +181,9 @@ const PostedAnnouncementIndex: React.FC = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="container max-w-screen-lg px-4">
+      <div className="container px-4">
         <div className="flex justify-center py-10">
-          <h1 className="relative z-10 text-center font-serif text-3xl font-semibold after:absolute after:top-full after:left-0 after:h-2 after:w-full after:origin-left after:skew-y-1 after:animate-reveal after:bg-blue-primary">
+          <h1 className="relative z-10 text-center font-serif text-3xl font-semibold text-gray-900 after:absolute after:top-full after:left-0 after:h-2 after:w-full after:origin-left after:skew-y-1 after:animate-reveal after:bg-blue-primary">
             Vos announces déposées
           </h1>
         </div>

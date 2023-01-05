@@ -31,7 +31,14 @@ class AnnouncementService {
     }
   }
 
-  // here put all announcements requests
+  public async getAnnouncementById(id: number) {
+    try {
+      const response = await axios.get(`/announcements/${id}`);
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 export default AnnouncementService;

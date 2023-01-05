@@ -4,4 +4,10 @@ declare module Commun {
     id: number;
     nom: string;
   };
+
+  type Localisation = {
+    commune: string;
+    id: number;
+    wilaya: string;
+  };
 }

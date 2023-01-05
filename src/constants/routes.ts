@@ -2,6 +2,12 @@ import { ICONS } from "./icons";
 import { ROLES } from "./roles";
 
 export const ROUTES = {
+  ERROR: {
+    name: "Erreur",
+    path: "/error",
+    pathname: "/error",
+    allowedRoles: [ROLES.ADMIN, ROLES.USER],
+  },
   AUTH: {
     name: "Auth",
     path: "/auth",
@@ -37,7 +43,7 @@ export const ROUTES = {
   ANNOUNCEMENT_BY_ID: {
     name: "Announcement",
     path: "/announcements/",
-    pathname: "/announcements/[:id]",
+    pathname: "/announcements/[id]",
     allowedRoles: [ROLES.USER],
   },
   MESSAGES: {

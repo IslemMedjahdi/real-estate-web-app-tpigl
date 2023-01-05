@@ -14,7 +14,7 @@ class AuthService {
 
   public async postGoogleCredential(credentials: string) {
     try {
-      const res = await axios.post("/auth/", JSON.stringify({ credentials }));
+      const res = await axios.post("/auth", JSON.stringify({ credentials }));
       return res;
     } catch (e) {
       throw e;

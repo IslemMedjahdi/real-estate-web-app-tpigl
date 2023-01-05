@@ -1,3 +1,15 @@
+* {
+  scroll-behavior: smooth;
+}
+
+.swiper-button-next {
+  @apply !text-blue-primary;
+}
+
+.swiper-button-prev {
+  @apply !text-blue-primary;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
