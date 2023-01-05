@@ -6,5 +6,7 @@ declare module Auth {
     nom: string;
     prenom: string;
     role: ROLES;
+    tel?: string;
+    adress?: string;
   };
 }

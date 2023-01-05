@@ -21,6 +21,15 @@ module.exports = {
       fontSize: {
         base: "0.9375rem",
       },
+      animation: {
+        reveal: "reveal forwards 0.7s ease-in-out",
+      },
+      keyframes: {
+        reveal: {
+          "0%": { transform: "scale(0,100%)" },
+          "100%": { transform: "scale(100%,100%)" },
+        },
+      },
     },
   },
   plugins: [],

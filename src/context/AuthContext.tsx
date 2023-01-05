@@ -107,7 +107,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         .find(([_, item]) => item.pathname === router.pathname)?.[1]
         .allowedRoles.includes(currentUser.role))
   ) {
-    return <Loading />;
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-white">
+        <Loading />;
+      </div>
+    );
   }
 
   return (

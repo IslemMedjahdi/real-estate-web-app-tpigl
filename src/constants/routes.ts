@@ -34,6 +34,12 @@ export const ROUTES = {
     allowedRoles: [ROLES.USER],
     Icon: ICONS.Favorite,
   },
+  ANNOUNCEMENT_BY_ID: {
+    name: "Announcement",
+    path: "/announcements/",
+    pathname: "/announcements/[:id]",
+    allowedRoles: [ROLES.USER],
+  },
   MESSAGES: {
     name: "Mes messages",
     path: "/messages",

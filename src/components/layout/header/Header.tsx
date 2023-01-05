@@ -8,7 +8,7 @@ import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
   return (
-    <header className="flex justify-center border-b">
+    <header className="sticky top-0 z-50 flex justify-center border-b bg-white">
       <div className="container flex items-center justify-between gap-x-4  py-4 px-4">
         <div className="flex items-center gap-x-4">
           <Link

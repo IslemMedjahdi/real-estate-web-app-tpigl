@@ -17,9 +17,9 @@ const Layout: React.FC<Props> = ({
   const { currentUser } = useAuth();
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       {currentUser && withHeader && <Header />}
-      <div className="min-h-screen bg-gray-50">{children}</div>
+      <div>{children}</div>
       {currentUser && withFooter && <Footer />}
     </div>
   );
