@@ -41,7 +41,7 @@ const BriefInfo: React.FC<Props> = ({
         <p className="font-serif">
           <span className="text-lg font-bold">Adresse: </span> {adress}
         </p>
-        <p className="font-serif">
+        <p className="mt-2 font-serif">
           <span className="text-lg font-bold">Date de publication: </span>
           {createdAt}
         </p>

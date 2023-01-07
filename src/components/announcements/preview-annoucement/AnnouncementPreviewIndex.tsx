@@ -1,4 +1,5 @@
 import { NextSeo } from "next-seo";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ROUTES } from "../../../constants/routes";
@@ -11,6 +12,8 @@ import Description from "./Description";
 import Gallery from "./Gallery";
 import PosterInfo from "./PosterInfo";
 import PriceInfo from "./PriceInfo";
+
+const MapView = dynamic(() => import("./MapView"), { ssr: false });
 
 const announcementService = AnnouncementService.getInstance();
 
@@ -62,7 +65,7 @@ const AnnouncementPreviewIndex: React.FC = () => {
                   <div className="flex w-full flex-col rounded-sm bg-white shadow">
                     <Gallery photos={annoucement.photos} />
                     <hr />
-                    <div className="flex w-full justify-center px-4 py-6">
+                    <div className="flex w-full flex-col items-center justify-center px-4 py-6">
                       <div className="flex w-full max-w-screen-sm  flex-col gap-y-6">
                         <BriefInfo
                           category={annoucement.categorie}
@@ -76,6 +79,12 @@ const AnnouncementPreviewIndex: React.FC = () => {
                         />
                         <PriceInfo price={annoucement.prix} />
                         <Description text={annoucement.description || ""} />
+                        {annoucement.latitude && annoucement.longitude && (
+                          <MapView
+                            lat={annoucement.latitude}
+                            lng={annoucement.longitude}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>

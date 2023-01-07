@@ -12,6 +12,7 @@ import {
   BsGear,
   BsGrid,
   BsHouseDoor,
+  BsImages,
   BsMap,
   BsPersonX,
   BsPinMap,
@@ -42,4 +43,5 @@ export const ICONS = {
   CHEVRON_LEFT: BsChevronLeft,
   Price: IoMdPricetag,
   Text: BsCursorText,
+  Photo: BsImages,
 };

@@ -16,6 +16,8 @@ declare module Announcement {
     messages: unknown[];
     date_publication: Date;
     adresse: string;
+    latitude?: number;
+    longitude?: number;
   };
 
   type Category = "Vente" | "Echange" | "Location" | "Location pour vacances";

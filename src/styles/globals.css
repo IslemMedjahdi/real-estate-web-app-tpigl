@@ -31,6 +31,15 @@
   @apply bg-gray-50;
 }
 
+.leaflet-pane {
+  @apply !z-10;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  @apply !z-10;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
