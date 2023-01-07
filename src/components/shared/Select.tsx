@@ -9,6 +9,9 @@ type Props = {
   placeholder: string;
   error?: string;
   disabled?: boolean;
+  className?: string;
+  label?: string;
+  required?: boolean;
 };
 const Select: React.FC<Props> = ({
   options,
@@ -17,9 +20,21 @@ const Select: React.FC<Props> = ({
   placeholder,
   disabled,
   error,
+  label,
+  required,
+  className,
 }) => {
   return (
-    <div className="relative w-full max-w-xs">
+    <div className={`relative w-full max-w-xs ${className}`}>
+      {label && (
+        <label
+          htmlFor={label}
+          className="mb-2 flex items-center gap-x-1 text-sm font-medium text-gray-600  "
+        >
+          <span>{label}</span>
+          {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <div className="w-full text-sm">
         <Listbox value={value} onChange={onChange}>
           <div className="relative ">

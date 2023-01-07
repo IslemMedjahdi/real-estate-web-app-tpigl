@@ -22,6 +22,11 @@ declare module Announcement {
 
   type AnnouncementPart = Omit<Announcement, "fans" | "auteur" | "messages">;
 
+  type AnnouncementNew = Partial<
+    Omit<Announcement, "id" | "messages" | "localisation" | "photos"> &
+      Omit<Commun.Localisation, "id">
+  >;
+
   type AnnouncementFilters = {
     search?: string;
     type?: string;

@@ -5,6 +5,7 @@ import {
   BsChevronDown,
   BsChevronLeft,
   BsChevronRight,
+  BsCursorText,
   BsEnvelope,
   BsEye,
   BsFolder,
@@ -18,6 +19,7 @@ import {
   BsTrash,
 } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
+import { IoMdPricetag } from "react-icons/io";
 
 export const ICONS = {
   MENU: FiMenu,
@@ -38,4 +40,6 @@ export const ICONS = {
   CHEVRON_DOWN: BsChevronDown,
   CHEVRON_RIGHT: BsChevronRight,
   CHEVRON_LEFT: BsChevronLeft,
+  Price: IoMdPricetag,
+  Text: BsCursorText,
 };

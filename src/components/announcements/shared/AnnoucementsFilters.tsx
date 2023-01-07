@@ -39,13 +39,14 @@ const AnnoucementsFilters: React.FC<Props> = ({
   const onWilayaChange = async (wilaya: string) => {
     setCommunes([]);
     onFilterChange((prev) => ({ ...prev, commune: undefined }));
-    try {
-      const response = await locationService.getCommunes(wilaya);
-      const communes = response.data.map(({ commune }: any) => commune);
-      setCommunes([""].concat(communes));
-    } catch (e) {
-      console.log(e);
-    }
+    if (wilaya)
+      try {
+        const response = await locationService.getCommunes(wilaya);
+        const communes = response.data.map(({ commune }: any) => commune);
+        setCommunes([""].concat(communes));
+      } catch (e) {
+        console.log(e);
+      }
   };
 
   return (
@@ -92,52 +93,30 @@ const AnnoucementsFilters: React.FC<Props> = ({
           />
           <Select
             placeholder="Sélectionnez Type"
-            options={[
-              "",
-              "Terrain",
-              "Terrain Agricole",
-              "Appartement",
-              "Maison",
-              "Bungalow",
-              "Autre",
-            ]}
+            options={["", ...INFO.IMMOBILIER_TYPES]}
             value={filters.type || ""}
             onChange={(selected) =>
               onFilterChange((prev) => ({ ...prev, type: selected }))
             }
           />
-          <div className="flex w-full flex-wrap items-center justify-center gap-2">
-            <div className=" z-10 w-full max-w-xs">
-              <DatePicker
-                className="w-full cursor-pointer border px-4 py-2.5 text-sm text-gray-700 outline-none placeholder:text-sm"
-                placeholderText="La date De : "
-                selected={filters.createAtStart}
-                onChange={(date) =>
-                  onFilterChange((prev) => ({
-                    ...prev,
-                    createAtStart: date || undefined,
-                  }))
-                }
-                dateFormat="yyyy-MM-dd"
-                locale="fr"
-              />
-            </div>
-
-            <div className=" z-10 w-full max-w-xs">
-              <DatePicker
-                className="w-full cursor-pointer border px-4 py-2.5 text-sm text-gray-700 outline-none placeholder:text-sm"
-                placeholderText="La date à : "
-                selected={filters.createdAtEnd}
-                onChange={(date) =>
-                  onFilterChange((prev) => ({
-                    ...prev,
-                    createdAtEnd: date || undefined,
-                  }))
-                }
-                dateFormat="yyyy-MM-dd"
-                locale="fr"
-              />
-            </div>
+          <div className="z-40 w-full max-w-xs">
+            <DatePicker
+              className="w-full cursor-pointer border px-4 py-2.5 text-sm text-gray-700 outline-none placeholder:text-sm"
+              placeholderText="Date de publication : "
+              selectsRange
+              startDate={filters.createAtStart}
+              endDate={filters.createdAtEnd}
+              isClearable
+              onChange={([dateStart, dateEnd]) =>
+                onFilterChange((prev) => ({
+                  ...prev,
+                  createAtStart: dateStart || undefined,
+                  createdAtEnd: dateEnd || undefined,
+                }))
+              }
+              dateFormat="yyyy-MM-dd"
+              locale="fr"
+            />
           </div>
         </div>
         <div className="flex w-full max-w-md flex-col gap-y-2">

@@ -20,6 +20,17 @@
   @apply !bg-blue-primary;
 }
 
+.react-datepicker__day--keyboard-selected {
+  @apply !bg-blue-primary;
+}
+
+.ql-container {
+  flex-grow: 1 !important;
+  overflow: auto;
+  min-height: 6rem;
+  @apply bg-gray-50;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
