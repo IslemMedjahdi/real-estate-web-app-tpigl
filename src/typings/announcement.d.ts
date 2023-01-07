@@ -23,7 +23,16 @@ declare module Announcement {
   type AnnouncementPart = Omit<Announcement, "fans" | "auteur" | "messages">;
 
   type AnnouncementNew = Partial<
-    Omit<Announcement, "id" | "messages" | "localisation" | "photos"> &
+    Omit<
+      Announcement,
+      | "id"
+      | "messages"
+      | "localisation"
+      | "photos"
+      | "fans"
+      | "auteur"
+      | "date_publication"
+    > &
       Omit<Commun.Localisation, "id">
   >;
 

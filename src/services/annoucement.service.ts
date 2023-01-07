@@ -33,6 +33,19 @@ class AnnouncementService {
     }
   }
 
+  public async createAnnouncement(data: FormData) {
+    try {
+      const response = await axios.postForm("/announcements/create", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   public async getAnnouncementById(id: number) {
     try {
       const response = await axios.get(`/announcements/${id}`);

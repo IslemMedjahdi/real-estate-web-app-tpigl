@@ -2315,6 +2315,11 @@ react-icons@^4.7.1:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.7.1.tgz#0f4b25a5694e6972677cb189d2a72eabea7a8345"
   integrity sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==
 
+react-image-picker-editor@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-image-picker-editor/-/react-image-picker-editor-1.2.0.tgz#5185145f79a8f0b6c5b26751ecf59fff4707baff"
+  integrity sha512-ASl8QFQRPPepB7vA6phe8lTzNYrVysgNJiWuNHiMQAVBh7I0qacJsNG9ByBolywLqM3ofcFksYLhj/yGks/nxg==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

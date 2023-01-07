@@ -1,22 +1,49 @@
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { ImagePickerConf } from "react-image-picker-editor";
+import "react-image-picker-editor/dist/index.css";
 import "react-quill/dist/quill.snow.css";
 import { ICONS } from "../../../constants/icons";
 import { INFO } from "../../../constants/info";
+import { ROUTES } from "../../../constants/routes";
+
 import { WILAYAS_FR } from "../../../constants/wilaya_algeria";
+import AnnouncementService from "../../../services/annoucement.service";
 import LocationService from "../../../services/locations.service";
 import { Announcement } from "../../../typings/announcement";
 import Select from "../../shared/Select";
 import TextInput from "../../shared/TextInput";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactImagePickerEditor = dynamic(
+  () => import("react-image-picker-editor"),
+  { ssr: false }
+);
 
 const locationService = LocationService.getInstance();
+const announcementService = AnnouncementService.getInstance();
+
+const config2: ImagePickerConf = {
+  borderRadius: "8px",
+  language: "en",
+  width: "100%",
+  height: "8rem",
+  objectFit: "cover",
+  compressInitial: null,
+  hideEditBtn: true,
+  hideDownloadBtn: true,
+  hideAddBtn: true,
+};
 
 const AddAnnouncementIndex = () => {
+  const router = useRouter();
+
   const [announcement, setAnnouncement] =
     useState<Announcement.AnnouncementNew>({});
+  const [photos, setPhotos] = useState<(Blob | null)[]>([]);
   const [communes, setCommunes] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnnouncement((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -37,6 +64,49 @@ const AddAnnouncementIndex = () => {
     }
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (
+      !announcement.titre ||
+      !announcement.description ||
+      !announcement.adresse ||
+      !announcement.categorie ||
+      !announcement.type ||
+      !announcement.commune ||
+      !announcement.wilaya ||
+      !announcement.surface ||
+      !announcement.prix
+    ) {
+      return;
+    }
+    setLoading(true);
+    const bodyFormData = new FormData();
+    bodyFormData.append("titre", announcement.titre);
+    bodyFormData.append("description", announcement.description);
+    bodyFormData.append("adresse", announcement.adresse);
+    bodyFormData.append("categorie", announcement.categorie);
+    bodyFormData.append("type", announcement.type);
+    bodyFormData.append("wilaya", announcement.wilaya);
+    bodyFormData.append("commune", announcement.commune);
+    bodyFormData.append("surface", announcement.surface.toString());
+    bodyFormData.append("prix", announcement.prix.toString());
+    photos.forEach(async (photo, index) => {
+      if (photo) {
+        bodyFormData.append("photos", photo, `image${index}.jpg`);
+      }
+    });
+    try {
+      const response = await announcementService.createAnnouncement(
+        bodyFormData
+      );
+      router.push(ROUTES.POSTED_ANNOUNCEMENTS.path);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <div className="container px-4">
@@ -45,7 +115,7 @@ const AddAnnouncementIndex = () => {
             Création d'une annonce
           </h1>
         </div>
-        <div className="w-full bg-white shadow">
+        <form onSubmit={onSubmit} className="w-full bg-white shadow">
           <div className="flex flex-col gap-y-4 p-4">
             <h1 className="flex items-center gap-x-2 font-serif text-sm font-medium text-gray-600">
               <ICONS.Category />
@@ -137,6 +207,34 @@ const AddAnnouncementIndex = () => {
                 }
               />
             </div>
+            <div>
+              <label
+                htmlFor={"description"}
+                className="flex items-center gap-x-1 text-sm font-medium text-gray-600 "
+              >
+                <span>Photos</span>
+                <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:justify-start">
+                {[0, 1, 2, 3].map((item) => (
+                  <div className="w-full max-w-[12rem] grow" key={item}>
+                    <ReactImagePickerEditor
+                      config={config2}
+                      imageChanged={async (newDataUri: any) => {
+                        const blob = newDataUri
+                          ? await (await fetch(newDataUri)).blob()
+                          : null;
+                        setPhotos((prev) => {
+                          let newPhotos = [...prev];
+                          newPhotos[item] = blob;
+                          return newPhotos;
+                        });
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
             <hr></hr>
             <h1 className="flex items-center gap-x-2 font-serif text-sm font-medium text-gray-600">
               <ICONS.Map />
@@ -178,7 +276,29 @@ const AddAnnouncementIndex = () => {
               Icon={ICONS.Map}
             />
           </div>
-        </div>
+          <hr />
+          <div className="flex justify-end p-4">
+            <button
+              disabled={
+                !announcement.titre ||
+                !announcement.description ||
+                !announcement.adresse ||
+                !announcement.categorie ||
+                !announcement.type ||
+                !announcement.commune ||
+                !announcement.wilaya ||
+                !announcement.surface ||
+                !announcement.prix
+              }
+              type="submit"
+              className={`${
+                loading ? "animate-pulse" : ""
+              } rounded-sm bg-blue-primary px-6 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover disabled:bg-blue-hover`}
+            >
+              Envoyer
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
