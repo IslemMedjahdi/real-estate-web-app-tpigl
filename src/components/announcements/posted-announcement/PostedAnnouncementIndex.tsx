@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -117,6 +117,18 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
     grow: 1,
   },
   {
+    name: "Date de publication",
+    cell: (row) => (
+      <p className="text-sm font-medium">
+        {new Date(row.date_publication).toUTCString()}
+      </p>
+    ),
+    selector: (row) => new Date(row.date_publication).toUTCString(),
+    sortable: true,
+    reorder: true,
+    grow: 1.5,
+  },
+  {
     name: "Actions",
     cell: (row) => {
       const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
@@ -162,7 +174,10 @@ const PostedAnnouncementIndex: React.FC = () => {
   const [announcements, setAnnouncements] = useState<
     Announcement.AnnouncementPart[] | null
   >(null);
+
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [searchText, setSearchText] = useState<string>("");
 
   const getMyAnnouncements = async () => {
     setLoading(true);
@@ -174,6 +189,26 @@ const PostedAnnouncementIndex: React.FC = () => {
       console.log(e);
     }
   };
+
+  const filteredAnnouncements = useCallback(() => {
+    let newAnnouncements: Announcement.AnnouncementPart[] = [];
+    if (announcements) {
+      newAnnouncements = announcements.filter(
+        ({ titre, adresse, categorie, localisation }) =>
+          titre.toLowerCase().includes(searchText) ||
+          searchText.toLowerCase().includes(titre) ||
+          adresse.toLowerCase().includes(searchText) ||
+          searchText.toLowerCase().includes(adresse) ||
+          categorie.toLowerCase().includes(searchText) ||
+          searchText.toLowerCase().includes(categorie) ||
+          localisation.wilaya.toLowerCase().includes(searchText) ||
+          searchText.toLowerCase().includes(localisation.wilaya) ||
+          localisation.commune.toLowerCase().includes(searchText) ||
+          searchText.toLowerCase().includes(localisation.commune)
+      );
+    }
+    return newAnnouncements;
+  }, [searchText, announcements]);
 
   useEffect(() => {
     getMyAnnouncements();
@@ -187,19 +222,38 @@ const PostedAnnouncementIndex: React.FC = () => {
             Vos announces déposées
           </h1>
         </div>
-        <div className="shadow">
+        <div className="flex w-full flex-col divide-y bg-white shadow">
+          <div className="flex w-full flex-wrap-reverse items-center justify-between gap-4 p-4">
+            <input
+              name="search"
+              className="w-full border bg-white px-4 py-2 text-sm outline-none focus:ring-1 focus:ring-blue-primary sm:max-w-xs"
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Recherche"
+              value={searchText}
+              type="text"
+            />
+            <div className="flex w-full justify-center sm:w-fit sm:justify-start">
+              <Link
+                href={ROUTES.ADD_ANNOUNCEMENT.path}
+                className="rounded-sm bg-blue-primary px-4 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover"
+              >
+                Ajouter une announce
+              </Link>
+            </div>
+          </div>
           <DataTable
             columns={columns}
-            data={announcements || []}
+            data={filteredAnnouncements()}
             noDataComponent={
               <div className="flex h-52 flex-col items-center justify-center gap-2">
                 <p className="text-center text-lg font-medium text-gray-800">
-                  Vous n'avez pas encore d'annonce, cliquez ici pour ajouter une
-                  nouvelle annonce
+                  {announcements?.length === 0
+                    ? "Vous n'avez pas encore d'annonce, cliquez ici pour ajouter une nouvelle annonce"
+                    : `il n'y a pas d'annonce avec la recherche "${searchText}"`}
                 </p>
                 <Link
                   href={ROUTES.ADD_ANNOUNCEMENT.path}
-                  className="rounded-sm bg-blue-primary px-4 py-2 text-white transition duration-200 hover:bg-blue-hover"
+                  className="rounded-sm bg-blue-primary px-4 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover"
                 >
                   Ajouter une announce
                 </Link>

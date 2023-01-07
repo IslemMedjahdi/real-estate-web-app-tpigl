@@ -8,6 +8,7 @@ type Props = {
   wilaya: string;
   commun: string;
   adress: string;
+  createdAt: string;
 };
 
 const BriefInfo: React.FC<Props> = ({
@@ -16,10 +17,11 @@ const BriefInfo: React.FC<Props> = ({
   wilaya,
   commun,
   adress,
+  createdAt,
 }) => {
   return (
-    <div className="flex flex-col gap-y-6">
-      <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-4 text-gray-800">
+    <div className="flex flex-col gap-y-6 text-gray-800">
+      <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-4 ">
         <div className="flex items-center gap-4">
           <ICONS.Category className="text-2xl text-blue-primary" />
           <p className="font-serif font-bold">{category}</p>
@@ -35,9 +37,13 @@ const BriefInfo: React.FC<Props> = ({
           </p>
         </div>
       </div>
-      <div>
+      <div className="flex flex-col">
         <p className="font-serif">
-          <span className="text-lg font-bold">Adresse:</span> {adress}
+          <span className="text-lg font-bold">Adresse: </span> {adress}
+        </p>
+        <p className="font-serif">
+          <span className="text-lg font-bold">Date de publication: </span>
+          {createdAt}
         </p>
       </div>
     </div>

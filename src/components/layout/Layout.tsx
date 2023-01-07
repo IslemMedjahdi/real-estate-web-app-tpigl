@@ -11,15 +11,17 @@ type Props = {
 
 const Layout: React.FC<Props> = ({
   children,
-  withFooter = false,
+  withFooter = true,
   withHeader = true,
 }) => {
   const { currentUser } = useAuth();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-800">
       {currentUser && withHeader && <Header />}
-      <div>{children}</div>
+      <div id="main" className="min-h-screen">
+        {children}
+      </div>
       {currentUser && withFooter && <Footer />}
     </div>
   );

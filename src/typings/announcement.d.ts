@@ -20,7 +20,16 @@ declare module Announcement {
 
   type Category = "Vente" | "Echange" | "Location" | "Location pour vacances";
 
-  type AnnouncementPart = Omit<Announcement, "fans" | "auteur"> & {
-    photos: Commun.Image[];
+  type AnnouncementPart = Omit<Announcement, "fans" | "auteur" | "messages">;
+
+  type AnnouncementFilters = {
+    search?: string;
+    type?: string;
+    wilaya?: string;
+    commune?: string;
+    createAtStart?: Date;
+    createdAtEnd?: Date;
+    start_price?: number;
+    end_price?: number;
   };
 }

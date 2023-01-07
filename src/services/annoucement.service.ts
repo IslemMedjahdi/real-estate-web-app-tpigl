@@ -1,4 +1,6 @@
 import axios from "../constants/axios";
+import { Announcement } from "../typings/announcement";
+import { formatDate } from "../utils/lib";
 
 class AnnouncementService {
   private static instance: AnnouncementService;
@@ -34,6 +36,40 @@ class AnnouncementService {
   public async getAnnouncementById(id: number) {
     try {
       const response = await axios.get(`/announcements/${id}`);
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async getAllAnnouncements(
+    page: number,
+    filters: Announcement.AnnouncementFilters
+  ) {
+    const {
+      search,
+      commune,
+      createAtStart,
+      createdAtEnd,
+      type,
+      wilaya,
+      end_price,
+      start_price,
+    } = filters;
+    try {
+      const response = await axios.get("/announcements/all", {
+        params: {
+          page,
+          q: search,
+          type,
+          wilaya,
+          commune,
+          start_date: createAtStart ? formatDate(createAtStart) : undefined,
+          end_date: createdAtEnd ? formatDate(createdAtEnd) : undefined,
+          start_price,
+          end_price,
+        },
+      });
       return response;
     } catch (e) {
       throw e;

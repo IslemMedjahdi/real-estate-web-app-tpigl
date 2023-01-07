@@ -70,6 +70,9 @@ const AnnouncementPreviewIndex: React.FC = () => {
                           wilaya={annoucement.localisation.wilaya}
                           commun={annoucement.localisation.commune}
                           adress={annoucement.adresse}
+                          createdAt={new Date(
+                            annoucement.date_publication
+                          ).toUTCString()}
                         />
                         <PriceInfo price={annoucement.prix} />
                         <Description text={annoucement.description || ""} />

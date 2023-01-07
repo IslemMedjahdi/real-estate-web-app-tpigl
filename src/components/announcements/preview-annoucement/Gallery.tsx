@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import Image from "next/image";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import { imageUrl } from "../../../utils/lib";
 
@@ -29,14 +30,18 @@ const Gallery: React.FC<Props> = ({ photos }) => {
         modules={[FreeMode, Navigation, Thumbs]}
       >
         {photos.map(({ id }) => (
-          <SwiperSlide key={id} className="!shadow">
-            <Image
-              src={imageUrl(id)}
-              alt={`thumb-${id}`}
-              height={1920}
-              width={1080}
-              className="aspect-video w-full rounded-sm bg-cover"
-            />
+          <SwiperSlide key={id} className="!cursor-zoom-in !shadow">
+            <TransformWrapper>
+              <TransformComponent>
+                <Image
+                  src={imageUrl(id)}
+                  alt={`thumb-${id}`}
+                  height={1920}
+                  width={1080}
+                  className="aspect-video w-full  rounded-sm bg-cover"
+                />
+              </TransformComponent>
+            </TransformWrapper>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -1,5 +1,10 @@
+import { AiOutlineCheck } from "react-icons/ai";
+import { BiTime } from "react-icons/bi";
 import {
   BsBookmarkHeart,
+  BsChevronDown,
+  BsChevronLeft,
+  BsChevronRight,
   BsEnvelope,
   BsEye,
   BsFolder,
@@ -9,6 +14,7 @@ import {
   BsMap,
   BsPersonX,
   BsPinMap,
+  BsSearch,
   BsTrash,
 } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
@@ -26,4 +32,10 @@ export const ICONS = {
   Category: BsGrid,
   Map: BsMap,
   Surface: BsPinMap,
+  Watch: BiTime,
+  Search: BsSearch,
+  Check: AiOutlineCheck,
+  CHEVRON_DOWN: BsChevronDown,
+  CHEVRON_RIGHT: BsChevronRight,
+  CHEVRON_LEFT: BsChevronLeft,
 };

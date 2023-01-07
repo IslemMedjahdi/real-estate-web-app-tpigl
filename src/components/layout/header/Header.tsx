@@ -4,9 +4,11 @@ import { IMAGES } from "../../../constants/images";
 import { INFO } from "../../../constants/info";
 import { NAV } from "../../../constants/nav";
 import { ROUTES } from "../../../constants/routes";
+import useAuth from "../../../hooks/useAuth";
 import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
+  const { currentUser } = useAuth();
   return (
     <header className="sticky top-0 z-50 flex justify-center border-b bg-white">
       <div className="container flex items-center justify-between gap-x-4  py-4 px-4">
@@ -23,15 +25,17 @@ const Header = () => {
         </div>
         <div className="flex items-center gap-x-4">
           <nav className="hidden items-center gap-x-4 md:flex ">
-            {NAV.map((item, index) => (
-              <Link
-                key={index}
-                className="relative text-base font-semibold after:absolute after:top-full after:left-0  after:h-1 after:w-full after:origin-left after:skew-y-1 after:scale-x-0 after:bg-blue-primary after:transition after:duration-300 hover:after:scale-x-100"
-                href={item.path}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {NAV.map(({ name, path, allowedRoles }, index) =>
+              currentUser && allowedRoles.includes(currentUser.role) ? (
+                <Link
+                  key={index}
+                  className="relative text-base font-semibold after:absolute after:top-full after:left-0  after:h-1 after:w-full after:origin-left after:skew-y-1 after:scale-x-0 after:bg-blue-primary after:transition after:duration-300 hover:after:scale-x-100"
+                  href={path}
+                >
+                  {name}
+                </Link>
+              ) : null
+            )}
           </nav>
           <ProfileMenu />
         </div>
