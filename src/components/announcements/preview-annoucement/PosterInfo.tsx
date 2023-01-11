@@ -21,11 +21,17 @@ const PosterInfo: React.FC<Props> = ({ email, firstName, lastName, phone }) => {
             </p>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <p className="text-center font-serif font-bold ">
             <span className="capitalize"> {firstName.toLowerCase()} </span>
             <span className="capitalize">{lastName.toLowerCase()}</span>
           </p>
+          <a
+            href={`mailto:${email}`}
+            className="text-sm font-medium hover:underline"
+          >
+            {email}
+          </a>
           {phone && (
             <a
               href={`tel:${phone}`}
@@ -34,12 +40,6 @@ const PosterInfo: React.FC<Props> = ({ email, firstName, lastName, phone }) => {
               {phone}
             </a>
           )}
-          <a
-            href={`mailto:${email}`}
-            className="text-sm font-medium hover:underline"
-          >
-            {email}
-          </a>
         </div>
         <Link
           href={"#"}

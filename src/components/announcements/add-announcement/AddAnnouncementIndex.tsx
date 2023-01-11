@@ -19,10 +19,6 @@ const AddAnnouncementIndex = () => {
   const [photos, setPhotos] = useState<(Blob | null)[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnnouncement((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
