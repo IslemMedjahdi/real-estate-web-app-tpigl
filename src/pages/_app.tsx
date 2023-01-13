@@ -5,6 +5,7 @@ import NProgress from "nprogress"; //nprogress module
 import Layout from "../components/layout/Layout";
 import { INFO } from "../constants/info";
 import AuthProvider from "../context/AuthContext";
+import MessageProvider from "../context/MessageContext";
 import "../styles/globals.css";
 
 //Binding events.
@@ -20,9 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
         titleTemplate={`${INFO.Title} | %s`}
         description={INFO.Description}
       />
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <MessageProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </MessageProvider>
     </AuthProvider>
   );
 }

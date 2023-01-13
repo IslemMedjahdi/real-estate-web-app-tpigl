@@ -35,7 +35,6 @@ const AllAnouncementsIndex: React.FC = () => {
         setNumberOfPages(response.data.num_pages);
         setLoading(false);
       }, 1000);
-      console.log(response);
     } catch (e) {
       setLoading(false);
       setPageNum(savePage);

@@ -48,7 +48,6 @@ const LocalisationForm: React.FC<Props> = ({
     if (wilaya) {
       try {
         const response = await locationService.getCommunes(wilaya);
-        console.log(response.data);
         const communes = response.data.map(({ commune }: any) => commune);
 
         setCommunes([""].concat(communes));

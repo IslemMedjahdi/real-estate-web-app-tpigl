@@ -91,7 +91,7 @@ const AnnouncementPreviewIndex: React.FC = () => {
                 </div>
                 <div className="lg:col-span-2">
                   <div className="w-full gap-y-4 rounded-sm bg-blue-light  shadow lg:col-span-2">
-                    <ContactForm />
+                    <ContactForm AnnouncementId={annoucement.id} />
                     <hr />
                     <PosterInfo
                       email={annoucement.auteur.email}
