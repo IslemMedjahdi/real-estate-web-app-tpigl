@@ -3,17 +3,18 @@ import { ICONS } from "../../constants/icons";
 import useMessage from "../../hooks/useMessages";
 
 type Props = {
-  announcementId: number;
+  discussion_id: number;
 };
 
-const SendMessageForm: React.FC<Props> = ({ announcementId }) => {
-  const { sendMessage } = useMessage();
+const SendMessageForm: React.FC<Props> = ({ discussion_id }) => {
+  const { sendMessageByDiscussionId } = useMessage();
 
   const [message, setMessage] = React.useState<string>("");
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendMessage(announcementId, message);
+    sendMessageByDiscussionId(discussion_id, message);
+    setMessage("");
   };
 
   return (
@@ -34,7 +35,7 @@ const SendMessageForm: React.FC<Props> = ({ announcementId }) => {
         type="submit"
         className="flex items-center gap-2 rounded-xl  bg-blue-primary px-4 py-1 text-sm font-medium text-white transition duration-300 hover:bg-blue-hover"
       >
-        <span>Envoyer</span>
+        <span className="hidden md:flex">Envoyer</span>
         <ICONS.SEND />
       </button>
     </form>

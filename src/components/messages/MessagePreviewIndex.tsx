@@ -1,12 +1,14 @@
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { IMAGES } from "../../constants/images";
+import useAuth from "../../hooks/useAuth";
 import useMessage from "../../hooks/useMessages";
 import DiscussionList from "./DiscussionList";
 import DiscussionMessages from "./DiscussionMessages";
 
 const MessagePreviewIndex: React.FC = () => {
   const { discussions, loading } = useMessage();
+  const { currentUser } = useAuth();
   const [selectedDiscussionId, setSelectedDiscussionId] = useState<
     number | undefined
   >(undefined);
@@ -15,12 +17,6 @@ const MessagePreviewIndex: React.FC = () => {
     () => discussions?.find(({ id }) => id === selectedDiscussionId),
     [selectedDiscussionId]
   );
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    ref.current?.scrollTo(0, ref.current?.scrollHeight);
-  }, [selectedDiscussionId]);
 
   return (
     <div className="flex h-full flex-1 justify-center">
@@ -36,13 +32,20 @@ const MessagePreviewIndex: React.FC = () => {
             onSelectDiscussion={(id) => setSelectedDiscussionId(id)}
           />
           <div
-            ref={ref}
-            className="relative col-span-4 h-[80vh] w-full overflow-auto bg-white shadow lg:col-span-3"
+            className={`relative col-span-4 ${
+              !selectedDiscussionId ? "hidden" : "block"
+            } h-[80vh] w-full overflow-auto bg-white shadow md:block lg:col-span-3`}
           >
             {selectedDiscussionId ? (
               <DiscussionMessages
+                discussionWith={
+                  discussion?.annonceur.email === currentUser?.email
+                    ? discussion?.demandeur
+                    : discussion?.annonceur
+                }
                 messages={discussion?.messages || []}
-                announcementId={discussion?.id || 0}
+                discussion_id={discussion?.id || 0}
+                showDiscussionList={() => setSelectedDiscussionId(undefined)}
               />
             ) : (
               <div className="flex h-full items-center justify-center">

@@ -9,14 +9,14 @@ type Props = {
 };
 
 const ContactForm: React.FC<Props> = ({ AnnouncementId }) => {
-  const { sendMessage, isConnected } = useMessage();
+  const { sendMessageByAnnouncementId, isConnected } = useMessage();
 
   const [message, setMessage] = useState<string>("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isConnected) {
-      sendMessage(AnnouncementId, message);
+      sendMessageByAnnouncementId(AnnouncementId, message);
       setMessage("");
       toast.success("Le message a été envoyé avec succès", {
         progressClassName: "!bg-blue-primary",

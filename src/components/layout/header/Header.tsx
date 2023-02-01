@@ -1,16 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { IMAGES } from "../../../constants/images";
 import { INFO } from "../../../constants/info";
 import { NAV } from "../../../constants/nav";
 import { ROUTES } from "../../../constants/routes";
 import useAuth from "../../../hooks/useAuth";
+import { useScrollDirection } from "../../../hooks/useScrollDirection";
 import ProfileMenu from "./ProfileMenu";
 
 const Header = () => {
   const { currentUser } = useAuth();
+  const router = useRouter();
+  const scrollDirection = useScrollDirection();
+
   return (
-    <header className="sticky top-0 z-50 flex justify-center border-b bg-white">
+    <header
+      className={`sticky ${
+        scrollDirection === "down" ? "-top-24" : "top-0"
+      }  z-50 flex justify-center border-b bg-white shadow transition-all duration-500`}
+    >
       <div className="container flex items-center justify-between gap-x-4  py-4 px-4">
         <div className="flex items-center gap-x-4">
           <Link
@@ -29,7 +38,11 @@ const Header = () => {
               currentUser && allowedRoles.includes(currentUser.role) ? (
                 <Link
                   key={index}
-                  className="relative text-base font-semibold after:absolute after:top-full after:left-0  after:h-1 after:w-full after:origin-left after:skew-y-1 after:scale-x-0 after:bg-blue-primary after:transition after:duration-300 hover:after:scale-x-100"
+                  className={`relative text-base font-semibold after:absolute after:top-full after:left-0  after:h-1 after:w-full after:origin-left after:skew-y-1 ${
+                    path === router.pathname
+                      ? "after:scale-x-100"
+                      : "after:scale-x-0"
+                  } after:bg-blue-primary after:transition after:duration-300 hover:after:scale-x-100`}
                   href={path}
                 >
                   {name}

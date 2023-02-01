@@ -36,8 +36,8 @@ const DiscussionListItem: React.FC<Props> = ({
           <img
             src={`https://api.dicebear.com/5.x/bottts/svg?seed=${
               annonceur.email === currentUser?.email
-                ? demandeur.nom + demandeur.prenom + demandeur.email
-                : annonceur.nom + annonceur.prenom + annonceur.email
+                ? demandeur.email
+                : annonceur.email
             }`}
             alt="avatar"
             className="h-full w-full rounded-full"
@@ -46,14 +46,10 @@ const DiscussionListItem: React.FC<Props> = ({
       </div>
       <div className="flex w-full flex-col gap-y-1">
         <p className="w-fit text-sm font-medium text-blue-primary">
-          <span className="underline">
-            {annonceur.email === currentUser?.email && "Mon "}
-            Annonce:
-          </span>{" "}
           {annonce.titre.substring(0, 40)} {annonce.titre.length > 40 && "..."}{" "}
         </p>
         <p className="text-sm font-medium text-slate-800">
-          <span className="underline">Avec:</span>{" "}
+          <span>Avec:</span>{" "}
           {annonceur.email === currentUser?.email
             ? demandeur.nom + " " + demandeur.prenom
             : annonceur.nom + " " + annonceur.prenom}

@@ -1,3 +1,5 @@
+import { useMemo, useState } from "react";
+import useAuth from "../../hooks/useAuth";
 import useMessage from "../../hooks/useMessages";
 import DiscussionListItem from "./DiscussionListItem";
 
@@ -11,9 +13,27 @@ const DiscussionList: React.FC<Props> = ({
   onSelectDiscussion,
 }) => {
   const { discussions, loading } = useMessage();
+  const { currentUser } = useAuth();
+
+  const [sentDiscussions, recievedDiscussions] = useMemo(() => {
+    if (!discussions) return [[], []];
+    const sentDiscussions = discussions.filter(
+      ({ annonceur }) => annonceur.email !== currentUser?.email
+    );
+    const recievedDiscussions = discussions.filter(
+      ({ annonceur }) => annonceur.email === currentUser?.email
+    );
+    return [sentDiscussions, recievedDiscussions];
+  }, [discussions, currentUser]);
+
+  const [showSentDiscussions, setShowSentDiscussions] = useState(false);
 
   return (
-    <div className="hidden h-full w-full divide-y overflow-y-auto border  bg-white shadow lg:block">
+    <div
+      className={`col-span-4 ${
+        selectedDiscussionId ? "hidden" : ""
+      } h-full w-full divide-y overflow-y-auto border  bg-white shadow  md:col-span-1 md:block`}
+    >
       {loading &&
         !discussions &&
         [1, 2, 3, 4, 5, 6, 7, 8, 9].map((_) => (
@@ -29,19 +49,43 @@ const DiscussionList: React.FC<Props> = ({
             </div>
           </div>
         ))}
-      {!loading &&
-        discussions &&
-        discussions.map(({ annonce, annonceur, demandeur, id, messages }) => (
-          <DiscussionListItem
-            key={id}
-            annonce={annonce}
-            annonceur={annonceur}
-            demandeur={demandeur}
-            lastMessage={messages[messages.length - 1].contenu}
-            onClick={() => onSelectDiscussion(id)}
-            selected={selectedDiscussionId === id}
-          />
-        ))}
+      {!loading && discussions && (
+        <div className="flex h-full flex-col divide-y">
+          <div className="flex flex-wrap justify-center gap-4 px-2 py-4">
+            <button
+              onClick={() => setShowSentDiscussions(false)}
+              className={`text-white ${
+                !showSentDiscussions ? "bg-blue-primary" : "bg-gray-400"
+              } rounded-md px-4 py-1.5 text-sm font-medium shadow-sm transition hover:bg-opacity-95`}
+            >
+              Reçues
+            </button>
+            <button
+              onClick={() => setShowSentDiscussions(true)}
+              className={`text-white ${
+                showSentDiscussions ? "bg-blue-primary" : "bg-gray-400"
+              } rounded-md px-4 py-1.5 text-sm font-medium shadow-sm transition hover:bg-opacity-95`}
+            >
+              Envoyées
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-hover">
+            {(showSentDiscussions ? sentDiscussions : recievedDiscussions).map(
+              ({ annonce, annonceur, demandeur, id, messages }) => (
+                <DiscussionListItem
+                  key={id}
+                  annonce={annonce}
+                  annonceur={annonceur}
+                  demandeur={demandeur}
+                  lastMessage={messages[messages.length - 1].contenu}
+                  onClick={() => onSelectDiscussion(id)}
+                  selected={selectedDiscussionId === id}
+                />
+              )
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

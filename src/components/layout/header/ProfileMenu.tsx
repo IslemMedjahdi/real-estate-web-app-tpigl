@@ -16,9 +16,7 @@ const ProfileMenu = () => {
   const ProfileImage = () => (
     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-hover p-1 text-sm font-medium text-white">
       <img
-        src={`https://api.dicebear.com/5.x/bottts/svg?seed=${
-          currentUser.nom + currentUser.prenom + currentUser.email
-        }`}
+        src={`https://api.dicebear.com/5.x/bottts/svg?seed=${currentUser.email}`}
         alt="avatar"
         className="h-full w-full rounded-full"
       />

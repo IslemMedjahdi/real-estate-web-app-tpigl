@@ -13,12 +13,17 @@ const tokenService = TokenService.getInstance();
 const discussionsService = DiscussionsService.getInstance();
 export const MessageContext = createContext<{
   isConnected: boolean;
-  sendMessage: (announcement_id: number, contenu: string) => void;
+  sendMessageByAnnouncementId: (
+    announcement_id: number,
+    contenu: string
+  ) => void;
+  sendMessageByDiscussionId: (discussion_id: number, contenu: string) => void;
   loading: boolean;
   discussions: Discussions.Discussion[] | null;
 }>({
   isConnected: false,
-  sendMessage: () => {},
+  sendMessageByAnnouncementId: () => {},
+  sendMessageByDiscussionId: () => {},
   loading: true,
   discussions: [],
 });
@@ -38,7 +43,10 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [loading, setLoading] = useState(true);
 
-  const sendMessage = (announcement_id: number, contenu: string) => {
+  const sendMessageByAnnouncementId = (
+    announcement_id: number,
+    contenu: string
+  ) => {
     socket.send({
       data: {
         announcement_id: announcement_id.toString(),
@@ -49,6 +57,43 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
         Authorization: "Bearer " + tokenService.getAccessToken(),
       },
     });
+  };
+
+  const sendMessageByDiscussionId = (
+    discussion_id: number,
+    contenu: string
+  ) => {
+    if (discussions && currentUser) {
+      socket.send({
+        data: {
+          discussion_id: discussion_id.toString(),
+          objet: "",
+          contenu,
+        },
+        headers: {
+          Authorization: "Bearer " + tokenService.getAccessToken(),
+        },
+      });
+
+      const discussionIndex = discussions.findIndex(
+        ({ id }) => id === discussion_id
+      );
+      if (discussionIndex !== -1) {
+        const newDiscussion = discussions[discussionIndex];
+        newDiscussion.messages.push({
+          contenu: contenu,
+          id: new Date().getUTCDate(),
+          objet: "",
+          lu: false,
+          emetteur: currentUser,
+        });
+        setDiscussions([
+          newDiscussion,
+          ...discussions.slice(0, discussionIndex),
+          ...discussions.slice(discussionIndex + 1),
+        ]);
+      }
+    }
   };
 
   const getDiscussions = async () => {
@@ -88,14 +133,19 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
       });
 
       socket.on("message", async (data: Discussions.NewMessage) => {
-        toast("Nouveau message", {
-          progressClassName: "!bg-blue-primary",
-          icon: (
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-primary">
-              <ICONS.Envelope className=" text-white" />
-            </div>
-          ),
-        });
+        toast.success(
+          `nouveau message de ${
+            data.emetteur.nom + " " + data.emetteur.prenom
+          }`,
+          {
+            progressClassName: "!bg-blue-primary",
+            icon: (
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-primary">
+                <ICONS.Check className=" text-white" />
+              </div>
+            ),
+          }
+        );
         const discussionIndex = discussions.findIndex(
           ({ id }) => id === data.discussion.id
         );
@@ -137,8 +187,20 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [discussions]);
 
   const contextValue = useMemo(
-    () => ({ isConnected, sendMessage, loading, discussions }),
-    [isConnected, sendMessage, loading, discussions]
+    () => ({
+      isConnected,
+      sendMessageByAnnouncementId,
+      loading,
+      discussions,
+      sendMessageByDiscussionId,
+    }),
+    [
+      isConnected,
+      sendMessageByAnnouncementId,
+      loading,
+      discussions,
+      sendMessageByDiscussionId,
+    ]
   );
 
   return currentUser ? (
