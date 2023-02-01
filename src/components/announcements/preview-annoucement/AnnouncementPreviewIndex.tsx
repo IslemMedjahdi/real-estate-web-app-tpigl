@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ROUTES } from "../../../constants/routes";
+import useAuth from "../../../hooks/useAuth";
 import AnnouncementService from "../../../services/annoucement.service";
 import { Announcement } from "../../../typings/announcement";
 import Loading from "../../shared/Loading";
@@ -19,6 +20,8 @@ const announcementService = AnnouncementService.getInstance();
 
 const AnnouncementPreviewIndex: React.FC = () => {
   const router = useRouter();
+
+  const { currentUser } = useAuth();
 
   const [annoucement, setAnnouncement] =
     useState<Announcement.Announcement | null>(null);
@@ -77,7 +80,12 @@ const AnnouncementPreviewIndex: React.FC = () => {
                             annoucement.date_publication
                           ).toUTCString()}
                         />
-                        <PriceInfo price={annoucement.prix} />
+                        <PriceInfo
+                          price={annoucement.prix}
+                          showSendMessage={
+                            annoucement.auteur.email !== currentUser?.email
+                          }
+                        />
                         <Description text={annoucement.description || ""} />
                         {annoucement.latitude && annoucement.longitude && (
                           <MapView
@@ -91,7 +99,9 @@ const AnnouncementPreviewIndex: React.FC = () => {
                 </div>
                 <div className="lg:col-span-2">
                   <div className="w-full gap-y-4 rounded-sm bg-blue-light  shadow lg:col-span-2">
-                    <ContactForm AnnouncementId={annoucement.id} />
+                    {annoucement.auteur.email !== currentUser?.email && (
+                      <ContactForm AnnouncementId={annoucement.id} />
+                    )}
                     <hr />
                     <PosterInfo
                       email={annoucement.auteur.email}

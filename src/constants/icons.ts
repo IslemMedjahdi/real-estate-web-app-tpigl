@@ -20,7 +20,7 @@ import {
   BsTrash,
 } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
-import { IoMdPricetag } from "react-icons/io";
+import { IoMdPricetag, IoMdSend } from "react-icons/io";
 
 export const ICONS = {
   MENU: FiMenu,
@@ -44,4 +44,5 @@ export const ICONS = {
   Price: IoMdPricetag,
   Text: BsCursorText,
   Photo: BsImages,
+  SEND: IoMdSend,
 };

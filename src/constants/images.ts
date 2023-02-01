@@ -4,4 +4,5 @@ export const IMAGES = {
   Auth_background: "/auth-background2.png",
   NO_IMAGE: "/no-image-available.png",
   NO_ANNOUNCEMENTS: "/no-announcements.svg",
+  DISCUSSIONS: "/discussions.svg",
 };

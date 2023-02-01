@@ -14,12 +14,14 @@ const PosterInfo: React.FC<Props> = ({ email, firstName, lastName, phone }) => {
         Annonceur Info
       </p>
       <div className="flex flex-col items-center gap-y-2">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-primary">
-          <div>
-            <p className="text-lg font-medium uppercase text-white">
-              {firstName[0]} {lastName[0]}
-            </p>
-          </div>
+        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-hover p-1">
+          <img
+            src={`https://api.dicebear.com/5.x/bottts/svg?seed=${
+              firstName + lastName + email
+            }`}
+            alt="avatar"
+            className="h-full w-full rounded-full"
+          />
         </div>
         <div className="flex flex-col items-center">
           <p className="text-center font-serif font-bold ">

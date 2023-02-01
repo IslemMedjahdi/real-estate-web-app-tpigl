@@ -51,7 +51,7 @@ const AllAnouncementsIndex: React.FC = () => {
       <div className="container sm:px-4">
         <div className="flex flex-col items-center justify-center gap-y-2 px-4 py-10">
           <h1 className="relative z-10 w-fit text-center font-serif text-3xl font-semibold text-gray-900 after:absolute after:top-full after:left-0 after:h-2 after:w-full after:origin-left after:skew-y-1 after:animate-reveal after:bg-blue-primary">
-            Rechercher une offre
+            Rechercher un offre
           </h1>
         </div>
         <div className="flex w-full flex-col divide-y  bg-white shadow">
