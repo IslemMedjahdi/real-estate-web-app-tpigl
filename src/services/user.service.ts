@@ -10,6 +10,15 @@ class UserService {
     return this.instance;
   }
 
+  public async getAllUsers() {
+    try {
+      const response = await axios.get("/admin/get-users");
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   getUserInfo() {
     const user = localStorage.getItem("@user");
     if (user) {

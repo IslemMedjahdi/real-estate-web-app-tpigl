@@ -6,6 +6,7 @@ import {
   BsChevronLeft,
   BsChevronRight,
   BsCursorText,
+  BsDiagram3,
   BsEnvelope,
   BsEye,
   BsFolder,
@@ -14,10 +15,12 @@ import {
   BsHouseDoor,
   BsImages,
   BsMap,
+  BsPeopleFill,
   BsPersonX,
   BsPinMap,
   BsSearch,
   BsTrash,
+  BsWindow,
 } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import { IoMdPricetag, IoMdSend } from "react-icons/io";
@@ -45,4 +48,7 @@ export const ICONS = {
   Text: BsCursorText,
   Photo: BsImages,
   SEND: IoMdSend,
+  Admin: BsWindow,
+  Scrap: BsDiagram3,
+  Users: BsPeopleFill,
 };

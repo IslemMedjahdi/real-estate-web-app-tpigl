@@ -57,6 +57,7 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
         Authorization: "Bearer " + tokenService.getAccessToken(),
       },
     });
+    getDiscussions();
   };
 
   const sendMessageByDiscussionId = (
@@ -166,13 +167,11 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
             ...discussions.slice(discussionIndex + 1),
           ]);
         } else {
-          //TODO: handle new discussion
           try {
             const newDiscussion =
               await discussionsService.getReceivedDiscussionById(
                 data.discussion.id
               );
-            console.log(newDiscussion.data);
             setDiscussions([newDiscussion.data, ...discussions]);
           } catch (e) {
             console.log(e);

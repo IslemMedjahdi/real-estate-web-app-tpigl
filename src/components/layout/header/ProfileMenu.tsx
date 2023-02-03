@@ -57,21 +57,6 @@ const ProfileMenu = () => {
                 </p>
               </Link>
             </Menu.Item>
-            {MENU_NAV.map(({ name, allowedRoles, path, Icon }, index) =>
-              currentUser && allowedRoles.includes(currentUser.role) ? (
-                <Menu.Item key={index}>
-                  <Link
-                    className="flex flex-wrap items-center gap-x-2 px-2 py-2 text-sm font-medium  hover:bg-gray-50"
-                    href={path}
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center">
-                      <Icon className="text-xl text-gray-700" />
-                    </div>
-                    <span> {name}</span>
-                  </Link>
-                </Menu.Item>
-              ) : null
-            )}
             {NAV.map(({ Icon, allowedRoles, name, path }, index) =>
               currentUser && allowedRoles.includes(currentUser.role) ? (
                 <Menu.Item key={index}>
@@ -87,6 +72,22 @@ const ProfileMenu = () => {
                 </Menu.Item>
               ) : null
             )}
+            {MENU_NAV.map(({ name, allowedRoles, path, Icon }, index) =>
+              currentUser && allowedRoles.includes(currentUser.role) ? (
+                <Menu.Item key={index}>
+                  <Link
+                    className="flex flex-wrap items-center gap-x-2 px-2 py-2 text-sm font-medium  hover:bg-gray-50"
+                    href={path}
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center">
+                      <Icon className="text-xl text-gray-700" />
+                    </div>
+                    <span> {name}</span>
+                  </Link>
+                </Menu.Item>
+              ) : null
+            )}
+
             <Menu.Item>
               <div
                 onClick={signOut}

@@ -88,6 +88,15 @@ class AnnouncementService {
       throw e;
     }
   }
+
+  public async scrapAnnouncement() {
+    try {
+      const response = await axios.get("admin/get-online");
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 export default AnnouncementService;

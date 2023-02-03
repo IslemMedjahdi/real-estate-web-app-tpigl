@@ -120,7 +120,7 @@ const columns: TableColumn<Announcement.AnnouncementPart>[] = [
     name: "Date de publication",
     cell: (row) => (
       <p className="text-sm font-medium">
-        {new Date(row.date_publication).toUTCString()}
+        {new Date(row.date_publication).toDateString()}
       </p>
     ),
     selector: (row) => new Date(row.date_publication).toUTCString(),

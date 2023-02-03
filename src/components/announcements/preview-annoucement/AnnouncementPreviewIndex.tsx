@@ -60,7 +60,7 @@ const AnnouncementPreviewIndex: React.FC = () => {
         <div className="flex justify-center">
           <div className="container py-10 px-4">
             <div>
-              <h1 className="relative z-10 font-serif text-3xl font-semibold text-gray-900">
+              <h1 className="relative z-10 w-fit text-center font-serif text-3xl font-semibold text-gray-900 after:absolute after:top-full after:left-0 after:h-2 after:w-full after:origin-left after:skew-y-1 after:animate-reveal after:bg-blue-primary">
                 {annoucement.titre}
               </h1>
               <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-6">
