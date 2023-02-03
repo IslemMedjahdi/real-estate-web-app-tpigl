@@ -7,7 +7,7 @@ import DiscussionList from "./DiscussionList";
 import DiscussionMessages from "./DiscussionMessages";
 
 const MessagePreviewIndex: React.FC = () => {
-  const { discussions, loading } = useMessage();
+  const { discussions } = useMessage();
   const { currentUser } = useAuth();
   const [selectedDiscussionId, setSelectedDiscussionId] = useState<
     number | undefined

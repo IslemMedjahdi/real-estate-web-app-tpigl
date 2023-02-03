@@ -36,9 +36,9 @@ const DiscussionMessages: React.FC<Props> = ({
         >
           <ICONS.CHEVRON_LEFT className="text-sm font-medium" />
         </div>
-        <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-hover p-1 text-sm font-medium text-white">
+        <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-hover text-sm font-medium text-white">
           <img
-            src={`https://api.dicebear.com/5.x/bottts/svg?seed=${
+            src={`https://api.dicebear.com/5.x/shapes/svg?seed=${
               discussionWith?.email || ""
             }`}
             alt="avatar"
@@ -60,9 +60,9 @@ const DiscussionMessages: React.FC<Props> = ({
               currentUser?.email === emetteur.email ? "flex-row-reverse" : ""
             } items-center gap-2`}
           >
-            <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-hover p-1 text-sm font-medium text-white">
+            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-blue-hover text-sm font-medium text-white">
               <img
-                src={`https://api.dicebear.com/5.x/bottts/svg?seed=${emetteur.email}`}
+                src={`https://api.dicebear.com/5.x/shapes/svg?seed=${emetteur.email}`}
                 alt="avatar"
                 className="h-full w-full rounded-full"
               />

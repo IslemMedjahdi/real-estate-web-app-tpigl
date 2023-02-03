@@ -32,9 +32,9 @@ const DiscussionListItem: React.FC<Props> = ({
       }  items-center gap-2  px-2  py-3 transition duration-300 last:!border-b  hover:bg-blue-light`}
     >
       <div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-hover p-1 text-sm font-medium text-white">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-hover text-sm font-medium text-white">
           <img
-            src={`https://api.dicebear.com/5.x/bottts/svg?seed=${
+            src={`https://api.dicebear.com/5.x/shapes/svg?seed=${
               annonceur.email === currentUser?.email
                 ? demandeur.email
                 : annonceur.email

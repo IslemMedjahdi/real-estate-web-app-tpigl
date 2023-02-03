@@ -82,7 +82,9 @@ const MessageProvider: React.FC<{ children: React.ReactNode }> = ({
         const newDiscussion = discussions[discussionIndex];
         newDiscussion.messages.push({
           contenu: contenu,
-          id: new Date().getUTCDate(),
+          id:
+            Math.floor((1 + Math.random()) * 0x10000) * 10000 +
+            Math.floor((1 + Math.random()) * 0x10000),
           objet: "",
           lu: false,
           emetteur: currentUser,
