@@ -35,7 +35,7 @@ const Select: React.FC<Props> = ({
           {required && <span className="text-red-500">*</span>}
         </label>
       )}
-      <div className="w-full text-sm">
+      <div className="w-full text-sm" id={`${label}-select`}>
         <Listbox value={value} onChange={onChange}>
           <div className="relative ">
             <Listbox.Button
