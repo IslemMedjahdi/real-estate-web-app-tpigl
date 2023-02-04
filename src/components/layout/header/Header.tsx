@@ -38,6 +38,7 @@ const Header = () => {
               currentUser && allowedRoles.includes(currentUser.role) ? (
                 <Link
                   key={index}
+                  id={`route-${path.replace("/", "") || "home"}`}
                   className={`relative text-base font-semibold after:absolute after:top-full after:left-0  after:h-1 after:w-full after:origin-left after:skew-y-1 ${
                     path === router.pathname
                       ? "after:scale-x-100"

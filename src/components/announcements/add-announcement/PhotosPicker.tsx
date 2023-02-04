@@ -36,7 +36,11 @@ const PhotosPicker: React.FC<Props> = ({ onImageChange }) => {
       </label>
       <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:justify-start">
         {[0, 1, 2, 3].map((item) => (
-          <div className="w-full max-w-[12rem] grow" key={item}>
+          <div
+            className="w-full max-w-[12rem] grow"
+            key={item}
+            id={`photo-picker-${item}`}
+          >
             <ReactImagePickerEditor
               config={config2}
               imageChanged={async (newDataUri: any) => {
