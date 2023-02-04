@@ -235,46 +235,49 @@ const PostedAnnouncementIndex: React.FC = () => {
             <div className="flex w-full justify-center sm:w-fit sm:justify-start">
               <Link
                 href={ROUTES.ADD_ANNOUNCEMENT.path}
+                id={`route-${ROUTES.ADD_ANNOUNCEMENT.path.replace("/", "")}`}
                 className="rounded-sm bg-blue-primary px-4 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover"
               >
                 Ajouter une announce
               </Link>
             </div>
           </div>
-          <DataTable
-            columns={columns}
-            data={filteredAnnouncements()}
-            noDataComponent={
-              <div className="flex h-52 flex-col items-center justify-center gap-2">
-                <p className="text-center text-lg font-medium text-gray-800">
-                  {announcements?.length === 0
-                    ? "Vous n'avez pas encore d'annonce, cliquez ici pour ajouter une nouvelle annonce"
-                    : `il n'y a pas d'annonce avec la recherche "${searchText}"`}
-                </p>
-                <Link
-                  href={ROUTES.ADD_ANNOUNCEMENT.path}
-                  className="rounded-sm bg-blue-primary px-4 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover"
-                >
-                  Ajouter une announce
-                </Link>
-              </div>
-            }
-            customStyles={{
-              headCells: {
-                style: {
-                  fontWeight: 700,
-                  fontFamily: "'Merriweather', sarif",
+          <div id="announcements-table">
+            <DataTable
+              columns={columns}
+              data={filteredAnnouncements()}
+              noDataComponent={
+                <div className="flex h-52 flex-col items-center justify-center gap-2">
+                  <p className="text-center text-lg font-medium text-gray-800">
+                    {announcements?.length === 0
+                      ? "Vous n'avez pas encore d'annonce, cliquez ici pour ajouter une nouvelle annonce"
+                      : `il n'y a pas d'annonce avec la recherche "${searchText}"`}
+                  </p>
+                  <Link
+                    href={ROUTES.ADD_ANNOUNCEMENT.path}
+                    className="rounded-sm bg-blue-primary px-4 py-2 text-sm font-medium text-white transition duration-200 hover:bg-blue-hover"
+                  >
+                    Ajouter une announce
+                  </Link>
+                </div>
+              }
+              customStyles={{
+                headCells: {
+                  style: {
+                    fontWeight: 700,
+                    fontFamily: "'Merriweather', sarif",
+                  },
                 },
-              },
-            }}
-            pagination
-            progressPending={loading}
-            progressComponent={
-              <div className="flex h-52 w-full items-center justify-center dark:bg-slate-800">
-                <Loading />
-              </div>
-            }
-          />
+              }}
+              pagination
+              progressPending={loading}
+              progressComponent={
+                <div className="flex h-52 w-full items-center justify-center dark:bg-slate-800">
+                  <Loading />
+                </div>
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
