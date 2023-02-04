@@ -1,6 +1,11 @@
 export const imageUrl = (id: number) => {
   return process.env.NEXT_PUBLIC_BACKEND_URL + "/pictures/" + id;
 };
+
+export const supportedNextjsImageUrl = (url: string) => {
+  return "https://res.cloudinary.com/demo/image/fetch/" + url;
+};
+
 export const time_ago = (time: any) => {
   switch (typeof time) {
     case "number":
@@ -27,7 +32,7 @@ export const time_ago = (time: any) => {
     [4838400, "Le mois dernier", "Le mois prochain"], // 60*60*24*7*4*2
     [29030400, "mois", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
     [58060800, "L'année dernière", "L'année prochaine"], // 60*60*24*7*4*12*2
-    [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+    [2903040000, "ans", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
     [5806080000, "Le siècle dernier", "Siècle suivant"], // 60*60*24*7*4*12*100*2
     [58060800000, "des siècles", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
   ];

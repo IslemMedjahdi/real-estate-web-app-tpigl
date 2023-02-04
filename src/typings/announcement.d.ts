@@ -1,5 +1,5 @@
+import { Discussions } from "./discussions";
 import { Auth } from "./user";
-
 declare module Announcement {
   type Announcement = {
     id: number;
@@ -13,7 +13,7 @@ declare module Announcement {
     photos: Commun.Image[];
     titre: string;
     localisation: Commun.Localisation;
-    messages: unknown[];
+    messages: Discussions.Message[];
     date_publication: Date;
     adresse: string;
     latitude?: number;
@@ -37,6 +37,19 @@ declare module Announcement {
     > &
       Omit<Commun.Localisation, "id">
   >;
+
+  type AnnouncementScrap = Omit<
+    Announcement,
+    | "photos"
+    | "latitude"
+    | "longitude"
+    | "messages"
+    | "fans"
+    | "auteur"
+    | "localisation"
+  > & {
+    photos: string[];
+  } & Omit<Commun.Localisation, "id">;
 
   type AnnouncementFilters = {
     search?: string;

@@ -97,6 +97,20 @@ class AnnouncementService {
       throw e;
     }
   }
+
+  public async createAnnouncementFromScrap(
+    data: Announcement.AnnouncementScrap
+  ) {
+    try {
+      const response = await axios.post(
+        "/announcements/create-from-scrapp",
+        data
+      );
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 export default AnnouncementService;
