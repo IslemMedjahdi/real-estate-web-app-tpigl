@@ -8,6 +8,7 @@ import {
   BsCursorText,
   BsDiagram3,
   BsEnvelope,
+  BsEnvelopeFill,
   BsEye,
   BsFolder,
   BsGear,
@@ -19,11 +20,14 @@ import {
   BsPersonX,
   BsPinMap,
   BsSearch,
+  BsTelephoneFill,
   BsTrash,
   BsWindow,
 } from "react-icons/bs";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoMdPricetag, IoMdSend } from "react-icons/io";
+import { MdLocationPin } from "react-icons/md";
 
 export const ICONS = {
   MENU: FiMenu,
@@ -51,4 +55,12 @@ export const ICONS = {
   Admin: BsWindow,
   Scrap: BsDiagram3,
   Users: BsPeopleFill,
+  EMAIL: BsEnvelopeFill,
+  LOCATION: MdLocationPin,
+  PHONE: BsTelephoneFill,
+
+  FACEBOOK: FaFacebook,
+  YOUTUBE: FaYoutube,
+  LINKEDIN: FaLinkedin,
+  INSTAGRAM: FaInstagram,
 };

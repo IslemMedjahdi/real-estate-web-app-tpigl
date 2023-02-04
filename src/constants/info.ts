@@ -20,4 +20,13 @@ export const INFO = {
     "Location",
     "Location pour vacances",
   ] as Announcement.Category[],
+  adress: "Dar El-Baida, office 2, 10000, Algiers, Algeria",
+  email: "contact@immobilia.dz",
+  phone_number: "+213 559 59 41 60",
+  social_media_links: {
+    facebook: "#",
+    instagram: "#",
+    linkedin: "#",
+    youtube: "#",
+  },
 };
