@@ -136,7 +136,6 @@ const columns: TableColumn<Announcement.AnnouncementScrap>[] = [
         try {
           const response =
             await announcementService.createAnnouncementFromScrap(row);
-          console.log(response);
           router.push(ROUTES.POSTED_ANNOUNCEMENTS.path);
         } catch (e) {
           console.log(e);
@@ -172,7 +171,6 @@ const ScrapAnnoucenemntIndex = () => {
     try {
       const response = await announcementService.scrapAnnouncement();
       setAnnouncements(response.data.annonces);
-      console.log(response.data.annonces);
       setLoading(false);
     } catch (e) {
       console.log(e);
