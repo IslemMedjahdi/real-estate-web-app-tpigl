@@ -5,7 +5,7 @@ export const INFO = {
   Title: "Immobilia",
   Icon: IMAGES.Logo,
   Description: "",
-  MAX_PRICE: 10000000,
+  MAX_PRICE: 1000000000,
   IMMOBILIER_TYPES: [
     "Terrain",
     "Terrain Agricole",
